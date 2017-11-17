@@ -13,7 +13,7 @@ namespace Encryption {
    #endregion References
 
    class AES_Rijndael {
-      static void Main (string[] args) {
+      static void MainEncryption (string[] args) {
          try {
 
             //string original = "Here is some data to encrypt!";
