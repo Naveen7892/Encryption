@@ -64,6 +64,7 @@
     <Compile Include="AES_Rijndael.cs" />
     <Compile Include="Base64Conversion.cs" />
     <Compile Include="BcryptDemo.cs" />
+    <Compile Include="Pbkdf2Demo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

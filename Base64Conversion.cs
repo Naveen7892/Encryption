@@ -13,7 +13,7 @@ namespace Encryption {
    #endregion References
 
    class Base64Conversion {
-      static void MainBase64Conversio (string[] args) {
+      static void MainBase64Conversion (string[] args) {
          string myData = "3223-6213-1360-7021-6113";
 
          string myDataEncoded = EncodeTo64 (myData);

@@ -6,46 +6,56 @@ using System.Threading.Tasks;
 
 namespace Encryption {
 
-   // namespace alias. Not working
-   // using Bcr = BCrypt.Net.BCrypt;
+    // namespace alias. Not working
+    // using Bcr = BCrypt.Net.BCrypt;
 
-   using BCrypt.Net;
+    using BCrypt.Net;
 
-   #region References
+    #region References
 
-   // http://bcrypt.codeplex.com/documentation
-   // https://cmatskas.com/a-simple-net-password-hashing-implementation-using-bcrypt/
-   // https://github.com/BcryptNet/bcrypt.net/issues/11
+    // http://bcrypt.codeplex.com/documentation
+    // https://cmatskas.com/a-simple-net-password-hashing-implementation-using-bcrypt/
+    // https://github.com/BcryptNet/bcrypt.net/issues/11
+    // https://blog.filippo.io/salt-and-pepper/
+    // https://www.javacodegeeks.com/2012/08/bcrypt-salt-its-bare-minimum.html
 
-   #endregion References
+    #endregion References
 
-   class BcryptDemo {
-      static void Main(string[] args) {
-         string hashed = HashPassword ("my_password");
-         Console.WriteLine (hashed);
+    class BcryptDemo {
+        static void Main (string[] args) {
+            string hashed = HashPassword ("my_password");
+            // sample hash: $2a$12$RsecSrzLJrUPUaKD6c.64.4oZ/WQzpOq7X/EXcPkZ46oJgW/34rcq (generates diff pass for same input but validates correctly for all hash. Maths is great!!!)
 
-         if(ValidatePassword("my_password", hashed)) {
-            Console.WriteLine ("Correct");
-         } else {
-            Console.WriteLine ("False");
-         }
+            Console.WriteLine (hashed);
 
-         Console.ReadLine ();
-      }
+            if (ValidatePassword ("my_password", hashed)) {
 
-      private static string GetRandomSalt () {
-         // Error: the type or namespace name 'GenerateSalt' does not exist in the namespace
-         // return BCrypt.GenerateSalt (12);
+                if (ValidatePassword ("my_password", "$2a$12$d/JKWxBtChGWAQlzf4eUGeGUFRUY15/nUED0vsIcVU7Wfk.bGi92m")) {
+                    Console.WriteLine ("Correct - 2");
+                }
 
-         return BCrypt.GenerateSalt (12);
-      }
+                Console.WriteLine ("Correct");
+            } else {
+                Console.WriteLine ("False");
+            }
 
-      public static string HashPassword (string password) {
-         return BCrypt.HashPassword (password, GetRandomSalt ());
-      }
+            Console.ReadLine ();
+        }
 
-      public static bool ValidatePassword (string password, string correctHash) {
-         return BCrypt.Verify (password, correctHash);
-      }
-   }
+        private static string GetRandomSalt () {
+            // Error: the type or namespace name 'GenerateSalt' does not exist in the namespace
+            // return BCrypt.GenerateSalt (12);
+
+            return BCrypt.GenerateSalt (12);
+        }
+
+        public static string HashPassword (string password) {
+            return BCrypt.HashPassword (password, GetRandomSalt ());
+        }
+
+        public static bool ValidatePassword (string password, string correctHash) {
+            return BCrypt.Verify (password, correctHash);
+        }
+    }
 }
+       
